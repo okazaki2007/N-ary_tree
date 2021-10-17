@@ -84,7 +84,7 @@ public class Nodo<T> {
     }
 
     private Nodo<T> raiz;
-
+    static int tamaño=1;
     public void ArbolNArio(Nodo<T> raiz) {
         this.raiz = raiz;
 
@@ -106,14 +106,23 @@ public class Nodo<T> {
     public boolean existe(T clave) {
         return encontrar(raiz, clave);
     }
-    public void tamaño(){
-        int tamaño=0;
-        for(int i=0;i< getHijos().size();i++){
-            ++tamaño;
 
-        }
-        System.out.println(tamaño+1);
+    public ArrayList<Nodo<T>> geTamaño() {
+        ArrayList<Nodo<T>> size = new ArrayList<Nodo<T>>();
+        Size(raiz, size);
+        System.out.println("El tamaño es: " +tamaño);
+        return size;
     }
+
+
+    public void Size(Nodo<T> nodo, ArrayList<Nodo<T>> size) {
+        for (Nodo<T> hijo : nodo.getHijos()) {
+            Size(hijo, size);
+            tamaño++;
+        }
+    }
+
+
 
     public int getNumeroNodos() {
         return getNumeroDescendientes(raiz) + 1;
@@ -177,12 +186,17 @@ public class Nodo<T> {
     }
 
     public void construirPreOrder(Nodo<T> nodo, ArrayList<Nodo<T>> preOrder) {
+
         preOrder.add(nodo);
+
         for (Nodo<T> hijo : nodo.getHijos()) {
             construirPreOrder(hijo, preOrder);
 
 
+
+
         }
+
 
     }
 
@@ -285,6 +299,8 @@ class ArbolesNArios {
 
          nodo.getPreOrder();
          nodo.getPostOrder();
+         nodo.geTamaño();
+
 
 
           /*
