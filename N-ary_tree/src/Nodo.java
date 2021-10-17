@@ -95,6 +95,7 @@ public class Nodo<T> {
     }
 
     public Nodo<T> getRaiz() {
+        System.out.println("La raiz es: "+raiz);
         return raiz;
     }
 
@@ -272,6 +273,7 @@ class ArbolesNArios {
         Nodo f=new Nodo(120);
         Nodo g=new Nodo(130);
 
+        
         nodo.agregarHijo(node);
         node.agregarHijo(nodi);
         nodi.agregarHijo(nodt);
@@ -300,6 +302,7 @@ class ArbolesNArios {
          nodo.getPreOrder();
          nodo.getPostOrder();
          nodo.geTamaño();
+         nodo.getRaiz();
 
 
 
