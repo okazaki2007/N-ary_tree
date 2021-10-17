@@ -61,6 +61,7 @@ public class Nodo<T> {
 
 
     public Nodo<T> getHijoEn(int posicion) {
+
         return hijos.get(posicion);
     }
 
@@ -95,7 +96,7 @@ public class Nodo<T> {
     }
 
     public Nodo<T> getRaiz() {
-        System.out.println("La raiz es: "+raiz);
+        System.out.println("\nLa raiz es: "+raiz);
         return raiz;
     }
 
@@ -111,7 +112,7 @@ public class Nodo<T> {
     public ArrayList<Nodo<T>> geTamaño() {
         ArrayList<Nodo<T>> size = new ArrayList<Nodo<T>>();
         Size(raiz, size);
-        System.out.println("El tamaño es: " +tamaño);
+        System.out.println("\nEl tamaño del arbol es: " +tamaño);
         return size;
     }
 
@@ -143,7 +144,8 @@ public class Nodo<T> {
         else {
             for (Nodo<T> hijo : nodo.getHijos()) {
                 if (encontrar(hijo, nodoClave)){
-                    System.out.println("Si esta el valor "+nodoClave);
+                    System.out.println("Existe el nodo con valor "+nodoClave+"?");
+                    System.out.println("Si existe el nodo con valor "+nodoClave+"\n");
                     return true;}
 
 
@@ -152,6 +154,8 @@ public class Nodo<T> {
 
 
         }
+        System.out.println("Existe el nodo con valor "+nodoClave+"?");
+        System.out.println("No existe\n");
         return false;
 
 
@@ -174,7 +178,7 @@ public class Nodo<T> {
     public ArrayList<Nodo<T>> getPreOrder() {
         ArrayList<Nodo<T>> preOrder = new ArrayList<Nodo<T>>();
         construirPreOrder(raiz, preOrder);
-        System.out.println("El pre orden es " +preOrder);
+        System.out.println("\nEl pre orden es " +preOrder);
         return preOrder;
     }
 
@@ -182,7 +186,7 @@ public class Nodo<T> {
     public ArrayList<Nodo<T>> getPostOrder() {
         ArrayList<Nodo<T>> postOrder = new ArrayList<Nodo<T>>();
         construirPostOrder(raiz, postOrder);
-        System.out.println("El pos orden es " +postOrder);
+        System.out.println("\nEl pos orden es " +postOrder);
         return postOrder;
     }
 
@@ -223,13 +227,17 @@ public class Nodo<T> {
     }
 
     public int getCaminoMasLargo()   {
+        System.out.print("El camino mas largo es: ");
         return caminoMasLargo().size();   }
 
     public ArrayList<ArrayList<Nodo<T>>> getRamas() {
-        ArrayList<ArrayList<Nodo<T>>> rutas = new ArrayList<ArrayList<Nodo<T>>>();
+        ArrayList<ArrayList<Nodo<T>>> rutas  = new ArrayList<ArrayList<Nodo<T>>>();
         ArrayList<Nodo<T>> camino = new ArrayList<Nodo<T>>();
         getPath(raiz, camino, rutas);
+
         return rutas;   }
+
+
 
     public void getPath(Nodo<T> nodo, ArrayList<Nodo<T>> camino,  ArrayList<ArrayList<Nodo<T>>> rutas) {
         if (camino == null)
@@ -252,21 +260,49 @@ public class Nodo<T> {
 
         return lista;   }
 
+    public ArrayList<ArrayList<Nodo<T>>> GRamas() {
+        ArrayList<ArrayList<Nodo<T>>> roos= new ArrayList<ArrayList<Nodo<T>>>();
+        ArrayList<Nodo<T>> Track= new ArrayList<Nodo<T>>();
+        getPath(raiz, Track, roos);
+        System.out.println("\nLas ramas son: " +roos);
+
+        return roos;   }
+
+
     public boolean isLeaf() {
+        System.out.println("\n"+this.getDato()+ " es un nodo hoja?");
         if (this.getHijos().isEmpty()){
+            System.out.println("Si lo es");
             return true;
         }
         else {
+            System.out.println("No lo es");
             return false;
         }
 
     }
 
     public Nodo<T> leftMostChild() {
-        List<Nodo<T>> temp = new ArrayList<>();
-        temp = this.getHijos();
-        return  temp.get(0);
+
+            List<Nodo<T>> temp = new ArrayList<>();
+            temp = this.getHijos();
+        System.out.print("\nExiste elemento a la izquierda de "+this.getDato()+"? ");
+
+            if(temp.size()==0){
+                System.out.print("no existe elemento a la izquierda\n");
+
+
+            }else{
+                System.out.print("\nSi y es el "+temp.get(0)+"\n");
+            return temp.get(0);}
+
+        return null;
+
+
     }
+
+
+
 
     public List<Nodo<T>> rightSibling() {
         List<Nodo<T>> temp = new ArrayList<>();
@@ -277,9 +313,11 @@ public class Nodo<T> {
                 fin.add(nod);
             }
         }
+        System.out.println("\nLos hermanos derechos de "+this.getDato()+" estan dados como: "+fin);
         return  fin;
     }
 }
+
 
 class ArbolesNArios {
     public static void main(String[] args) {
@@ -301,7 +339,7 @@ class ArbolesNArios {
         Nodo f=new Nodo(120);
         Nodo g=new Nodo(130);
 
-        
+
         nodo.agregarHijo(node);
         node.agregarHijo(nodi);
         nodi.agregarHijo(nodt);
@@ -324,17 +362,24 @@ class ArbolesNArios {
 
 
 
-        System.out.print("El camino mas largo es: ");
+
         nodo.getCaminoMasLargo();
 
          nodo.getPreOrder();
          nodo.getPostOrder();
          nodo.geTamaño();
          nodo.getRaiz();
-        System.out.println("PRUEBA leftMostChild():"+ node.leftMostChild());
-        System.out.println("PRUEBA rightSibling() :"+ node.rightSibling());
-        System.out.println(node.isLeaf());
-        System.out.println(g.isLeaf());
+
+         nodo.GRamas();
+
+
+         nodi.leftMostChild();
+        node.rightSibling();
+
+        nodo.isLeaf();
+        f.isLeaf();
+
+
 
 
           /*
