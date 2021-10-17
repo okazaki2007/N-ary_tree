@@ -251,6 +251,34 @@ public class Nodo<T> {
             lista.add(new Nodo<T>(nodo));
 
         return lista;   }
+
+    public boolean isLeaf() {
+        if (this.getHijos().isEmpty()){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public Nodo<T> leftMostChild() {
+        List<Nodo<T>> temp = new ArrayList<>();
+        temp = this.getHijos();
+        return  temp.get(0);
+    }
+
+    public List<Nodo<T>> rightSibling() {
+        List<Nodo<T>> temp = new ArrayList<>();
+        List<Nodo<T>> fin = new ArrayList<>();
+        temp = this.getHijos();
+        for (Nodo<T> nod: temp ){
+            if (nod !=temp.get(0)){
+                fin.add(nod);
+            }
+        }
+        return  fin;
+    }
 }
 
 class ArbolesNArios {
@@ -303,7 +331,10 @@ class ArbolesNArios {
          nodo.getPostOrder();
          nodo.geTamaño();
          nodo.getRaiz();
-
+        System.out.println("PRUEBA leftMostChild():"+ node.leftMostChild());
+        System.out.println("PRUEBA rightSibling() :"+ node.rightSibling());
+        System.out.println(node.isLeaf());
+        System.out.println(g.isLeaf());
 
 
           /*
