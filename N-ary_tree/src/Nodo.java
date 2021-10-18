@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class Nodo<T> {
     private T dato;
+    static int tamaño;
     private List<Nodo<T>> hijos;
     private Nodo<T> padre;
 
@@ -15,6 +16,11 @@ public class Nodo<T> {
         this.dato = (T) nodo.getDato();
         hijos = new ArrayList<>();
     }
+    public void insertFirst( Nodo<T> dato){
+        this.hijos.get(1).insertNext(dato);
+
+    }
+
 
     public void insertNext(Nodo<T> hijo) {
         hijo.setPadre(this);
@@ -87,7 +93,7 @@ public class Nodo<T> {
     }
 
     private Nodo<T> raiz;
-    static int tamaño=1;
+
 
     public boolean vacio() {
         return raiz == null;
@@ -109,19 +115,21 @@ public class Nodo<T> {
         return encontrarNodo(raiz, clave);
     }
 
-    public ArrayList<Nodo<T>> geTamaño() {
-        ArrayList<Nodo<T>> size = new ArrayList<Nodo<T>>();
-        Size(raiz, size);
-        System.out.println("\nEl tamaño del arbol es: " +tamaño);
-        return size;
-    }
 
 
-    public void Size(Nodo<T> nodo, ArrayList<Nodo<T>> size) {
-        for (Nodo<T> hijo : nodo.getHijos()) {
-            Size(hijo, size);
-            tamaño++;
+        public int Size (Nodo < T > nodo){
+            for (Nodo<T> hijo : nodo.getHijos()) {
+                Size(hijo);
+                tamaño++;
+            }
+
+            return tamaño;
         }
+
+    public  void getTamaño(Nodo <T> nodo) {
+        tamaño=1;
+        System.out.println("\nEl tamaño del arbol es: " + Size(nodo));
+
     }
 
 
@@ -327,6 +335,11 @@ public class Nodo<T> {
         System.out.println("\nLos hermanos derechos de "+this.getDato()+" estan dados como: "+fin);
         return  fin;
     }
+    public void removeFirst(){
+        System.out.println("\nPrimer nodo del nodo "+this.dato+" removido");
+        this.hijos.remove(0);
+
+    }
 
 }
 
@@ -368,36 +381,45 @@ class ArbolesNArios {
         node.insertNext(f);
         node.insertNext(g);
 
-
+        System.out.println("\n-Prueba inicial agregar padres e hijos, verificar si un nodo es hoja, existencia de un valor, raiz del arbol, ramas,hermano mas a la izquierda de un nodo y los derechos\n");
         nodo.encontrarNodo(nodi,100);
-
         nodo.getPadre();
-
-
         nodo.getCaminoMasLargo();
-
-
          nodo.getPreOrder();
          nodo.getPostOrder();
-         nodo.geTamaño();
+         nodo.getTamaño(nodo);
          nodo.getRaiz();
-
          nodo.GRamas();
-
-
          nodt.leftMostChild();
          nodt.rightSibling();
-
          nodo.isLeaf();
          f.isLeaf();
 
+        System.out.println("\n---------------Prueba agregar nodo "+g+" como primer nodo de "+f+" e imprimer datos del arbol de nuevo-------------------------");
+
+        node.insertFirst(g);
+        nodo.getPreOrder();
+        nodo.getPostOrder();
+        nodo.getTamaño(nodo);
+        nodo.GRamas();
 
 
+        System.out.println("\n---------------Prueba remover primer nodo de "+nodt+" (40) y devolver nuevo orden--------------------------");
+        nodt.removeFirst();
+        nodo.getPreOrder();
+        nodo.getPostOrder();
+        nodo.getTamaño(nodo);
+
+
+
+        System.out.println("\n---------------Prueba remover nodos hijos de "+nodt+" y "+nt+" , actualizar nodo 0 con el valor 1 y devolver datos--------------------------");
          nodt.eliminarHijos();
          nt.eliminarHijos();
          nt.setDato(1);
          nodo.getPreOrder();
          nodo.getPostOrder();
+        nodo.getTamaño(nodo);
+        nodo.GRamas();
 
 
 
@@ -407,12 +429,12 @@ class ArbolesNArios {
                     2                                      2
                     |                                      |
                     5                                      5
-                  /| \                                   / \  \
-                 / \  \                                10  120 130
-                /   \  \                              /  \
-              10   120  130                        100    1
-            /    \
-         100      0
+                  / \ \                                  / \  \
+                 /  \   \                              10  120 130
+                /    \   \                           /  \    \
+              10      120 130                      100    1   130
+            /    \     |
+         100      0   130
        / / \       \
      40 80  90   / | \
                50 60 70
