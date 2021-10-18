@@ -16,7 +16,7 @@ public class Nodo<T> {
         hijos = new ArrayList<>();
     }
 
-    public void agregarHijo(Nodo<T> hijo) {
+    public void insertNext(Nodo<T> hijo) {
         hijo.setPadre(this);
         hijos.add(hijo);
 
@@ -29,6 +29,7 @@ public class Nodo<T> {
     }
 
     public void eliminarHijos() {
+        System.out.println("\nNodos hijos de "+this.dato+" eliminados");
         this.hijos.clear();
     }
 
@@ -46,6 +47,7 @@ public class Nodo<T> {
 
 
     public Nodo<T> getPadre() {
+        System.out.println("El padre es: "+this.padre+"\n");
         return this.padre;
     }
 
@@ -86,10 +88,6 @@ public class Nodo<T> {
 
     private Nodo<T> raiz;
     static int tamaño=1;
-    public void ArbolNArio(Nodo<T> raiz) {
-        this.raiz = raiz;
-
-    }
 
     public boolean vacio() {
         return raiz == null;
@@ -105,8 +103,10 @@ public class Nodo<T> {
         this.raiz = raiz;
     }
 
+
+
     public boolean existe(T clave) {
-        return encontrar(raiz, clave);
+        return encontrarNodo(raiz, clave);
     }
 
     public ArrayList<Nodo<T>> geTamaño() {
@@ -138,12 +138,12 @@ public class Nodo<T> {
         return n;
     }
 
-    boolean encontrar(Nodo<T> nodo, T nodoClave) {
+    boolean encontrarNodo(Nodo<T> nodo, T nodoClave) {
         if (nodo.getDato().equals(nodoClave))
             return true;
         else {
             for (Nodo<T> hijo : nodo.getHijos()) {
-                if (encontrar(hijo, nodoClave)){
+                if (encontrarNodo(hijo, nodoClave)){
                     System.out.println("Existe el nodo con valor "+nodoClave+"?");
                     System.out.println("Si existe el nodo con valor "+nodoClave+"\n");
                     return true;}
@@ -161,11 +161,11 @@ public class Nodo<T> {
 
     }
 
-    public Nodo<T> encontrarNodo(Nodo<T> nodo, T nodoClave) {
+  /*  public Nodo<T> encontrarNodo(Nodo<T> nodo, T nodoClave) {
         if (nodo == null)
             return null;
-        if (nodo.getDato().equals(nodoClave))
-            return nodo;
+        if (nodo.getDato().equals(nodoClave)){
+            return nodo;}
         else {
             Nodo<T> cnodo = null;
             for (Nodo<T> hijo : nodo.getHijos())
@@ -173,7 +173,12 @@ public class Nodo<T> {
                     return cnodo;
         }
         return null;
-    }
+
+   */
+
+
+
+
 
     public ArrayList<Nodo<T>> getPreOrder() {
         ArrayList<Nodo<T>> preOrder = new ArrayList<Nodo<T>>();
@@ -200,10 +205,16 @@ public class Nodo<T> {
 
 
 
+
         }
 
 
+
+
     }
+
+
+
 
     public void construirPostOrder(Nodo<T> nodo, ArrayList<Nodo<T>> postOrder) {
         for (Nodo<T> hijo : nodo.getHijos()) {
@@ -286,14 +297,14 @@ public class Nodo<T> {
 
             List<Nodo<T>> temp = new ArrayList<>();
             temp = this.getHijos();
-        System.out.print("\nExiste elemento a la izquierda de "+this.getDato()+"? ");
+        System.out.print("\nElemento mas a la izquierda de "+this.getDato()+"? ");
 
             if(temp.size()==0){
-                System.out.print("no existe elemento a la izquierda\n");
+                System.out.print("no existe elemento mas a la izquierda\n");
 
 
             }else{
-                System.out.print("\nSi y es el "+temp.get(0)+"\n");
+                System.out.print("\nEs el "+temp.get(0)+"\n");
             return temp.get(0);}
 
         return null;
@@ -316,54 +327,55 @@ public class Nodo<T> {
         System.out.println("\nLos hermanos derechos de "+this.getDato()+" estan dados como: "+fin);
         return  fin;
     }
+
 }
 
 
 class ArbolesNArios {
     public static void main(String[] args) {
-        ArbolesNArios arbol=new ArbolesNArios();
 
-        Nodo nodo=new Nodo(2);
+        Nodo<Integer> nodo=new Nodo<>(2);
+        Nodo<Integer> node=new Nodo<>(5);
+        Nodo<Integer> nodi=new Nodo<>(10);
+        Nodo<Integer> nodt=new Nodo<>(100);
+
+        Nodo<Integer> nt=new Nodo<>(0);
+        Nodo<Integer> nl=new Nodo<>(40);
+        Nodo<Integer> a=new Nodo<>(50);
+        Nodo<Integer> b=new Nodo<>(60);
+        Nodo<Integer> c=new Nodo<>(70);
+        Nodo<Integer> d=new Nodo<>(80);
+        Nodo<Integer> e=new Nodo<>(90);
+        Nodo<Integer> f=new Nodo<>(120);
+        Nodo<Integer> g=new Nodo<>(130);
+
         nodo.setRaiz(nodo);
-        Nodo node=new Nodo(5);
-        Nodo nodi=new Nodo(10);
-        Nodo nodt=new Nodo(100);
-
-        Nodo nt=new Nodo(0);
-        Nodo nl=new Nodo(40);
-        Nodo a=new Nodo(50);
-        Nodo b=new Nodo(60);
-        Nodo c=new Nodo(70);
-        Nodo d=new Nodo(80);
-        Nodo e=new Nodo(90);
-        Nodo f=new Nodo(120);
-        Nodo g=new Nodo(130);
+        nodo.setPadre(node);
+        nodo.insertNext(node);
+        node.insertNext(nodi);
+        nodi.insertNext(nodt);
 
 
-        nodo.agregarHijo(node);
-        node.agregarHijo(nodi);
-        nodi.agregarHijo(nodt);
+        nodi.insertNext(nt);
+        nodt.insertNext(nl);
+        nt.insertNext(a);
+        nt.insertNext(b);
+        nt.insertNext(c);
+
+        nodt.insertNext(d);
+        nodt.insertNext(e);
+
+        node.insertNext(f);
+        node.insertNext(g);
 
 
-        nodi.agregarHijo(nt);
-        nodt.agregarHijo(nl);
-        nt.agregarHijo(a);
-        nt.agregarHijo(b);
-        nt.agregarHijo(c);
+        nodo.encontrarNodo(nodi,100);
 
-        nodt.agregarHijo(d);
-        nodt.agregarHijo(e);
-
-        node.agregarHijo(f);
-        node.agregarHijo(g);
-
-
-        nodo.encontrar(nodo,5);
-
-
+        nodo.getPadre();
 
 
         nodo.getCaminoMasLargo();
+
 
          nodo.getPreOrder();
          nodo.getPostOrder();
@@ -373,23 +385,32 @@ class ArbolesNArios {
          nodo.GRamas();
 
 
-         nodi.leftMostChild();
-        node.rightSibling();
+         nodt.leftMostChild();
+         nodt.rightSibling();
 
-        nodo.isLeaf();
-        f.isLeaf();
+         nodo.isLeaf();
+         f.isLeaf();
+
+
+
+         nodt.eliminarHijos();
+         nt.eliminarHijos();
+         nodo.setDato(1);
+         nodo.getPreOrder();
+         nodo.getPostOrder();
 
 
 
 
           /*
-                    2
-                    |
-                    5
-                  /| \
-                 / \  \
-                /   \  \
-               10   120  130
+          Arbol inicial                               Arbol final
+                    2                                      1
+                    |                                      |
+                    5                                      5
+                  /| \                                   / \  \
+                 / \  \                                10  120 130
+                /   \  \                              /  \
+              10   120  130                        100    0
             /    \
          100      0
        / / \       \
