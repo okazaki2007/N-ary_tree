@@ -395,7 +395,7 @@ class ArbolesNArios {
 
          nodt.eliminarHijos();
          nt.eliminarHijos();
-         nodo.setDato(1);
+         nt.setDato(1);
          nodo.getPreOrder();
          nodo.getPostOrder();
 
@@ -404,13 +404,13 @@ class ArbolesNArios {
 
           /*
           Arbol inicial                               Arbol final
-                    2                                      1
+                    2                                      2
                     |                                      |
                     5                                      5
                   /| \                                   / \  \
                  / \  \                                10  120 130
                 /   \  \                              /  \
-              10   120  130                        100    0
+              10   120  130                        100    1
             /    \
          100      0
        / / \       \
